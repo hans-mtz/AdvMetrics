@@ -1,0 +1,69 @@
+nrutil.mod : \
+  /Users/hans/F_code_mkl/nrutil.f90
+
+nrutil.o : \
+  /Users/hans/F_code_mkl/nrutil.f90 /opt/intel/oneapi/mkl/latest/include/intel64/lp64/blas95.mod
+
+integration.mod : \
+  /Users/hans/F_code_mkl/integration.f90
+
+integration.o : \
+  /Users/hans/F_code_mkl/integration.f90 nrutil.mod
+
+random.mod : \
+  /Users/hans/F_code_mkl/random.f90
+
+random.o : \
+  /Users/hans/F_code_mkl/random.f90 /opt/intel/oneapi/mkl/latest/include/intel64/lp64/lapack95.mod nrutil.mod
+
+probability.mod : \
+  /Users/hans/F_code_mkl/probability.f90
+
+probability.o : \
+  /Users/hans/F_code_mkl/probability.f90 /opt/intel/oneapi/mkl/latest/include/intel64/lp64/lapack95.mod nrutil.mod
+
+minimization.mod : \
+  /Users/hans/F_code_mkl/minimization.f90
+
+minimization.o : \
+  /Users/hans/F_code_mkl/minimization.f90 nrutil.mod
+
+annealing.mod : \
+  /Users/hans/F_code_mkl/anneal.f90
+
+anneal.o : \
+  /Users/hans/F_code_mkl/anneal.f90 nrutil.mod
+
+globvar.mod : \
+  globvar.f90
+
+globvar.o : \
+  globvar.f90
+
+init.mod : \
+  init.f90
+
+init.o : \
+  init.f90 globvar.mod
+
+likelihood_evaluation.mod : \
+  likelihood_evaluation.f90
+
+likelihood_evaluation.o : \
+  likelihood_evaluation.f90 nrutil.mod probability.mod globvar.mod
+
+likelihood.mod : \
+  likelihood.f90
+
+likelihood.o : \
+  likelihood.f90 likelihood_evaluation.mod globvar.mod
+
+io.mod : \
+  io.f90
+
+io.o : \
+  io.f90
+
+linear_regression.o : \
+  linear_regression.f90 annealing.mod io.mod minimization.mod likelihood.mod init.mod globvar.mod
+
