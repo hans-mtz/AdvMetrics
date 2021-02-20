@@ -18,6 +18,7 @@ SRC =	globvar.f90 \
 	normal.f90 \
 	q2a.f90 \
 	q2b.f90 \
+	q2c.f90 \
 	main.f90
 
 OBJ = ${SRC:.f90=.o}

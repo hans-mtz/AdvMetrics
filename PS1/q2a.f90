@@ -15,9 +15,9 @@ contains
 
       INTEGER, PARAMETER :: n=12,nm=4,ns=4
       !REAL(8), PARAMETER ::
-      REAL(8) :: miu(nm),sigma(ns),quad_int,dx1,dm,dm2,dm3,f1
+      REAL(8) :: miu(nm),sigma(ns),quad_int,dx1,dm,dm2,dm3,f1,dt1,dt2,dt3,dt4
       INTEGER :: i,j,k,h,h1,h2,h3
-      REAL(8) :: l,l1,l2,l3,u,u1,u2,u3,m,m1,m2,m3,c,c1,c2,c3,t,t2,t3,f,f2,f3
+      REAL(8) :: l,l1,l2,l3,u,u1,u2,u3,m,m1,m2,m3,c,c1,c2,c3,t,t1,t2,t3,t4,f,f2,f3
       REAL(8) :: x1(n),x2(n),x3(n),x4(n),w1(n),w2(n),w3(n),w4(n),intx2,intx3,intx4
 
       miu=(/0.0d0,0.0d0,0.0d0,1.0d0/)
@@ -28,14 +28,14 @@ contains
       ! Problem 2
       ! Using Guass-Legendre since it behaved better
       ! !Use Gauss Legendre
-      ! !Simple change of variables integrating in the interval [μ-4σ,a]
+      ! 
       intx2=0.0d0
       intx3=0.0d0
       intx4=0.0d0
 
-      l1=miu(1) - 4.0d0*sigma(1)
-      u1=miu(1) + 4.0d0*sigma(1)
-      CALL GAUSS_LEGENDRE(x1,w1,l1,u1)
+      ! l1=miu(1) - 4.0d0*sigma(1)
+      ! u1=miu(1) + 4.0d0*sigma(1)
+      CALL GAUSS_LEGENDRE(x1,w1,-1.0d0,1.0d0)
       x1loop: do i=1,size(x1)
           ! l1=miu(1)-4.0d0*sigma(1)
           ! u1=miu(1)+4.0d0*sigma(1)
@@ -44,61 +44,68 @@ contains
           ! u=c1+m1*x1(i)
           ! w1=w1/m1
           ! u1=x1(i)
-          f1=FUN_PDF_NORMAL(x1(i),miu(1),sigma(1))*w1(i)
+          t1=x1(i)/(x1(i)*x1(i)-1.0d0)
+          ! t1=log((x1(i)+ 1.0d0)/(x1(i)- 1.0d0))
+          ! dt1=-2.0d0/(x1(i)*x1(i)- 1.0d0)
+          ! dt1=-(x1(i)*x1(i)+1.0d0)/((x1(i)*x1(i)-1.0d0)**2.0d0)
+          ! f1=FUN_PDF_NORMAL(x1(i),miu(1),sigma(1))*w1(i)
 
          ! Loop for integral P(x2<x1)
-         u=miu(2) + 4.0d0*sigma(2)
-         l=miu(2) - 4.0d0*sigma(2)
-         CALL GAUSS_LEGENDRE(x2,w2,l,u)
+         ! u=miu(2) + 4.0d0*sigma(2)
+         ! l=miu(2) - 4.0d0*sigma(2)
+         CALL GAUSS_LEGENDRE(x2,w2,-1.0d0,1.0d0)
 
-          m=0.5d0*(u-l)
-          ! c=0.5d0*(u+l)
-          dm=(x1(i)-l)/(u-l)
-          w2=(w2*dm)/m!*w1(i)
+          ! m=0.5d0*(u-l)
+          ! ! c=0.5d0*(u+l)
+          ! dm=(x1(i)-l)/(u-l)
+          w2=w2*w1(i)
           ! intx2=0.0d0
           x2loop: do j=1,size(x2)
               ! t=c+m*x2(j)
-              t=l+((x1(i)-l)*(x2(j)-l))/(u-l)
+              t2=t1+((x2(j)- 1.0d0)/(x2(j)+ 1.0d0))
+              dt2=2.0d0/((x2(j)+ 1.0d0)**2.0d0)
               ! dx1=(x2(j)-l)/(u-l)
-              f=FUN_PDF_NORMAL(t,miu(2),sigma(2))
-              intx2=intx2+f1*f*w2(j)!*dx1)
+              f=FUN_PDF_NORMAL(t2,miu(2),sigma(2))
+              intx2=intx2+f*w2(j)/dt2!*dt1
           END DO x2loop
 
 
           !Loop for integral P(x3<x1)
-          u2=miu(3) + 4.0d0*sigma(3)
-          l2=miu(3) - 4.0d0*sigma(3)
-          CALL GAUSS_LEGENDRE(x3,w3,l2,u2)
+          ! u2=miu(3) + 4.0d0*sigma(3)
+          ! l2=miu(3) - 4.0d0*sigma(3)
+          CALL GAUSS_LEGENDRE(x3,w3,-1.0d0,1.0d0)
 
-          m2=0.5d0*(u2-l2)
+          ! m2=0.5d0*(u2-l2)
           ! c2=0.5d0*(u+l2)
-          dm2=(x1(i) - l2)/(u2 - l2)
-          w3=(w3*dm2)/m2!*w1(i)
+          ! dm2=(x1(i) - l2)/(u2 - l2)
+          w3=w3*w1(i)
           ! intx3=0.0d0
           x3loop: do h=1,n
               ! t2=c2+m2*x3(h)
-              t2=l2+((x1(i)-l2)*(x3(h)-l2))/(u2-l2)
+              t3=t1+((x3(h)- 1.0d0)/(x3(h)+ 1.0d0))
+              dt3=2.0d0/((x3(h)+ 1.0d0)**2.0d0)
               ! dx1=(x3(h)-l2)/(u2-l2)
-              f2=FUN_PDF_NORMAL(t2,miu(3),sigma(3))
-              intx3=intx3+f1*f2*w3(h)!*dx1)
+              f2=FUN_PDF_NORMAL(t3,miu(3),sigma(3))
+              intx3=intx3+f2*w3(h)/dt3!*dx1)
           END DO x3loop
 
           !Loop for integral P(x4<x1)
-          u3=miu(4) + 4.0d0*sigma(4)
-          l3=miu(4) - 4.0d0*sigma(4)
-          CALL GAUSS_LEGENDRE(x4,w4,l3,u3)
+          ! u3=miu(4) + 4.0d0*sigma(4)
+          ! l3=miu(4) - 4.0d0*sigma(4)
+          CALL GAUSS_LEGENDRE(x4,w4,-1.0d0,1.0d0)
 
-          m3=0.5d0*(u-l3)
+          ! m3=0.5d0*(u-l3)
           ! c3=0.5d0*(u+l3)
-          dm3=(x1(i)-l3)/(u3-l3)
-          w4=(w4*dm3)/m3!*w1(i)
+          ! dm3=(x1(i)-l3)/(u3-l3)
+          w4=w4*w1(i)
           ! intx4=0.0d0
           x4loop: do k=1,n
               ! t3=c3+m3*x4(k)
-              t3=l3+((x1(i)-l3)*(x4(k)-l3))/(u3-l3)
+              t4=t1+((x4(k)- 1.0d0)/(x4(k)+ 1.0d0))
+              dt4=2.0d0/((x4(k)+ 1.0d0)**2.0d0)
               ! dx1=(x4(k)-l3)/(u3-l3)
-              f3=FUN_PDF_NORMAL(t3,miu(4),sigma(4))
-              intx4=intx4+f1*f3*w4(k)!*dx1)
+              f3=FUN_PDF_NORMAL(t4,miu(4),sigma(4))
+              intx4=intx4+f3*w4(k)/dt4!*dx1)
           END DO x4loop
       enddo x1loop
 

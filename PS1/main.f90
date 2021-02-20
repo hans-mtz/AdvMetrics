@@ -5,6 +5,7 @@ PROGRAM MAIN
   use io
   use Q2AM
   use Q2BM
+  use Q2CM
   IMPLICIT NONE
 
   INTEGER, PARAMETER :: n=12,na=5,nm=2,ns=2,nmet=3
@@ -104,6 +105,8 @@ PROGRAM MAIN
   call q2a()
 
   call q2b()
+
+  call q2c()
 
   ! ! Now Monte Carlo
   ! ! First with 10 points
