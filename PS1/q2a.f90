@@ -28,7 +28,7 @@ contains
       ! Problem 2
       ! Using Guass-Legendre since it behaved better
       ! !Use Gauss Legendre
-      ! 
+      !
       intx2=0.0d0
       intx3=0.0d0
       intx4=0.0d0
@@ -44,11 +44,12 @@ contains
           ! u=c1+m1*x1(i)
           ! w1=w1/m1
           ! u1=x1(i)
-          t1=x1(i)/(x1(i)*x1(i)-1.0d0)
+          t1=x1(i)/(1.0d0-x1(i)*x1(i))
           ! t1=log((x1(i)+ 1.0d0)/(x1(i)- 1.0d0))
           ! dt1=-2.0d0/(x1(i)*x1(i)- 1.0d0)
-          ! dt1=-(x1(i)*x1(i)+1.0d0)/((x1(i)*x1(i)-1.0d0)**2.0d0)
-          ! f1=FUN_PDF_NORMAL(x1(i),miu(1),sigma(1))*w1(i)
+          dt1=(1.0d0+x1(i)*x1(i))/((1.0d0-x1(i)*x1(i))**2.0d0)
+          f1=FUN_PDF_NORMAL(x1(i),miu(1),sigma(1))!*w1(i)
+          !dt1=abs(dt1)!*f1
 
          ! Loop for integral P(x2<x1)
          ! u=miu(2) + 4.0d0*sigma(2)
@@ -62,11 +63,11 @@ contains
           ! intx2=0.0d0
           x2loop: do j=1,size(x2)
               ! t=c+m*x2(j)
-              t2=t1+((x2(j)- 1.0d0)/(x2(j)+ 1.0d0))
-              dt2=2.0d0/((x2(j)+ 1.0d0)**2.0d0)
+              t2=t1-((1.0d0-x2(j))/(1.0d0+x2(j)))
+              dt2=(2.0d0*x2(j))/((1.0d0+x2(j))**2.0d0)
               ! dx1=(x2(j)-l)/(u-l)
               f=FUN_PDF_NORMAL(t2,miu(2),sigma(2))
-              intx2=intx2+f*w2(j)/dt2!*dt1
+              intx2=intx2+f*w2(j)*abs(dt2)!*dt1)*f1!*(dt1)!**2.0d0)
           END DO x2loop
 
 
@@ -82,11 +83,11 @@ contains
           ! intx3=0.0d0
           x3loop: do h=1,n
               ! t2=c2+m2*x3(h)
-              t3=t1+((x3(h)- 1.0d0)/(x3(h)+ 1.0d0))
-              dt3=2.0d0/((x3(h)+ 1.0d0)**2.0d0)
+              t3=t1-((1.0d0-x3(h))/(x3(h)+ 1.0d0))
+              dt3=(2.0d0*x3(h))/((x3(h)+ 1.0d0)**2.0d0)
               ! dx1=(x3(h)-l2)/(u2-l2)
               f2=FUN_PDF_NORMAL(t3,miu(3),sigma(3))
-              intx3=intx3+f2*w3(h)/dt3!*dx1)
+              intx3=intx3+f2*w3(h)*abs(dt3)!*dt1)*f1!*(dt1)!**2.0d0)
           END DO x3loop
 
           !Loop for integral P(x4<x1)
@@ -101,11 +102,11 @@ contains
           ! intx4=0.0d0
           x4loop: do k=1,n
               ! t3=c3+m3*x4(k)
-              t4=t1+((x4(k)- 1.0d0)/(x4(k)+ 1.0d0))
-              dt4=2.0d0/((x4(k)+ 1.0d0)**2.0d0)
+              t4=t1-((1.0d0-x4(k))/(x4(k)+ 1.0d0))
+              dt4=(2.0d0*x4(k))/((x4(k)+ 1.0d0)**2.0d0)
               ! dx1=(x4(k)-l3)/(u3-l3)
               f3=FUN_PDF_NORMAL(t4,miu(4),sigma(4))
-              intx4=intx4+f3*w4(k)/dt4!*dx1)
+              intx4=intx4+f3*w4(k)*abs(dt4)!*dt1)*f1!*(dt1)!*2.0d0)
           END DO x4loop
       enddo x1loop
 

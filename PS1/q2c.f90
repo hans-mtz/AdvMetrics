@@ -3,6 +3,7 @@ module Q2CM
   USE INTEGRATION
   use NORMAL
   use io
+  ! use intel_sobol
   IMPLICIT NONE
 
   public :: q2c
@@ -15,23 +16,22 @@ contains
         !
       INTEGER, PARAMETER :: n=4
       !REAL(8), PARAMETER ::
-      REAL(8) :: miu(n),sigma(n),intx2(n),intx3(n),intx4(n),f,int_r(n)
+      REAL(8) :: miu(n),sigma(n),intx2(n),intx3(n),mc_halton(n),f,int_r(n),p(100,3)!,&
+                !P_CDF_Normal_Inverse_Ran
       INTEGER :: i,j,k,h,sim(n),skip,ns,initial,final,l,m
-      REAL(8) :: x(n),x1(n),x2(n),x3(n),x4(n),z1,z2,z3,z4,rho,drho,dx1, varcovar(n,n)
+      REAL(8) :: x(n),x1(n),x2(n),x3(n),x4(n),z(n),z1,z2,z3,z4,rho,drho,x11, varcovar(n,n)
 
       !Suppose we want to integrate normal ϕ(x) between -∞ and a ∈ (μ-3σ,μ+3σ)
       !Make grid of values for a
       miu=(/0.0d0,0.0d0,0.0d0,1.0d0/)
       sigma=(/1.0d0,1.0d0,1.0d0,1.0d0/)
       sim=(/20,25,50,100/)
-      skip=100
+      read*, skip
 
       varcovar=0.0d0
       forall(j=1:n) varcovar(j,j)=sigma(j)
 
       ! print*, "varcovar matrix is ", ((varcovar(i,j), i=1,n), j=1,n)
-
-
 
       ! x=Sample_Multivariate_Normal(miu,varcovar)
 
@@ -53,8 +53,45 @@ contains
           int_r(i)=int_r(i)/dble(ns)
 
       enddo simsloop
-
+      !
       print*, "MC integrals ", ((sim(i), int_r(i)),i=1,n)
+
+      ! call isobol(p,3)
+      !
+      ! print*, "Sobol numbers ", ((p(i,j),i=1,100),j=1,3)
+      mc_halton=0.0d0
+      x1=0.0d0
+      haltonloop: do i=1,size(sim)
+          ns=sim(i)
+
+          sims: do j=1,ns
+              x1_x3: do h=1,3
+                  call halton(skip+j+h+i,z(h))
+                  x1(h)=P_CDF_Normal_Inverse_Ran(z(h),0.0d0,1.0d0)
+              enddo x1_x3
+              ! x1(2)=P_CDF_Normal_Inverse_Ran(z(2),0.0d0,1.0d0)
+              ! x1(3)=P_CDF_Normal_Inverse_Ran(z(3),0.0d0,1.0d0)
+              call halton(skip+j+i+4,z2)
+              x1(4)=P_CDF_Normal_Inverse_Ran(z2,1.0d0,1.0d0)
+
+              ! print*, (x1(m),m=1,4)
+
+              if (x1(1)>x1(2) .and. x1(1)>x1(3) .and. x1(1)>x1(4)) then
+                mc_halton(i)=mc_halton(i)+1.0d0
+              endif !indicator
+
+              ! print*, "halton before dividing =", mc_halton(i), "sim ",i,j
+
+          enddo sims
+          mc_halton(i)=mc_halton(i)/dble(ns)
+
+          ! print*, "Halton division",mc_halton(i), i
+
+
+      enddo haltonloop
+
+      print*, "MC Halton integrals ", ((sim(i), mc_halton(i)),i=1,n)
+
 
 
   end subroutine q2c

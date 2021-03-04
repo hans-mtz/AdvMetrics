@@ -9,7 +9,9 @@ prefix = /Users/hans/F_code_mkl
 # 	$(prefix)/random.f90 \
 # 	$(prefix)/probability.f90 \
 # 	$(prefix)/minimization.f90 \
-# 	$(prefix)/anneal.f90
+# 	$(prefix)/anneal.f90 \
+$(prefix)/sobol_intel.f90 \
+
 SRC =	globvar.f90 \
 	init.f90 \
 	likelihood_evaluation.f90 \

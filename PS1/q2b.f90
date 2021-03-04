@@ -46,7 +46,7 @@ contains
 
               CALL HALTON(j,z1)
               x1(j)=log(z1/(1.0d0-z1))
-              dx1=(1.0d0-2.0d0*z1)/(z1*(1.0d0-z1))
+              dx1=1.0d0/(z1*(1.0d0-z1))
 
               x2loop: DO k=initial,final
 
