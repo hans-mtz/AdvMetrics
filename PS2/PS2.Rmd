@@ -4,8 +4,8 @@ subtitle: "Problem Set 2: Maximization"
 author: "Hans Martinez"
 date: "`r format(Sys.time(),'%b %m %Y')`"
 output: 
-  html_document: default
   pdf_document: default
+  html_document: default
 editor_options: 
   chunk_output_type: console
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 load("ps2.RData")
 ```
 
-The code and the report can be found in my [github repo]()
+The code and the report can be found in my [github repo](https://github.com/hans-mtz/AdvMetrics/tree/master/PS2)
 
 ### MLE (Probit)
 
