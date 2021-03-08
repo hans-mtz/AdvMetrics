@@ -2,7 +2,7 @@
 title: "Advanced Metrics"
 subtitle: "Problem Set 2: Maximization"
 author: "Hans Martinez"
-date: "`r format(Sys.time(),'%b %m %Y')`"
+date: "`r format(Sys.time(),'%D')`"
 output: 
   pdf_document: default
   html_document: default
