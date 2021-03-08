@@ -1,6 +1,6 @@
 # Avanced Econometrics
 
-Solutions to problem sets for the class Adv. Met with Prof. Salvador Navarro
+Solutions by Hans Martinez to problem sets for the class Adv. Met with Prof. Salvador Navarro
 
 PS1: [pdf](https://github.com/hans-mtz/AdvMetrics/blob/master/PS1/PS1.pdf) [code](https://github.com/hans-mtz/AdvMetrics/tree/master/PS1)
 
