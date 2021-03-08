@@ -1,0 +1,14 @@
+MODULE GLOBVAR
+
+  IMPLICIT NONE
+  ! This modlue declares the variables that are going to be used throughout the program
+  ! higher level languages do not require you to declare your variables ahead of time
+
+  INTEGER, PARAMETER :: N_individuals=50000, &	! number of people in the dataset
+       N_covariates=3, bs=100                           ! number of covariates in the regression (X's)
+  REAL(8) :: x(N_individuals,N_covariates),y(N_individuals),beta(N_covariates),&
+              variance(N_covariates,N_covariates)
+  INTEGER :: myid,numprocs,D(N_individuals)
+  logical:: hal
+
+END MODULE GLOBVAR

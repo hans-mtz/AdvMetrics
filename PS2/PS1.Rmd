@@ -1,0 +1,119 @@
+---
+title: "Advanced Metrics"
+subtitle: "Problem Set 1"
+author: "Hans Martinez"
+date: "19/02/2021"
+output: 
+  pdf_document: default
+  html_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 1. Single dimensional integral
+
+First, I compare different quadrature rules to calculate the following integral:
+
+$$ \Phi_{\mu,\sigma} = \int_{-\infty}^{a} \phi(x)dx $$
+
+As requested in the problem set, I use:
+
+1.  Gauss-Legendre between $( \mu - 4\sigma, a )$.
+
+2.  Gauss-Chebyshev with change of variables (COV).
+
+3.  Gauss-Hermite with COV.
+
+For the Gauss-Chevyshev COV, I use $\rho(y)=ln(y+1)-ln(2)+a$, which maps $[-1,1] \to [-\infty,a]$. For Gauss-Hermite, $\rho(y)=-e^{-y}+a$ which maps $[ - \infty , \infty] \to [-\infty,a]$.
+
+The next table summarizes the results.
+
+| $\mu$ | $\sigma$ | a     | Gauss-Legendre | Gauss-Chebyshev | Gauss-Hermite |
+|-------|----------|-------|----------------|-----------------|---------------|
+| -1    | 0.5      | -2.5  | 0.01460856     | 0.01703302      | 0.01628041    |
+| -1    | 0.5      | -1.75 | 0.14208332     | 0.14488280      | 0.14076644    |
+| -1    | 0.5      | -1    | 0.49766113     | 0.50080450      | 0.49416151    |
+| -1    | 0.5      | -0.25 | 0.85323895     | 0.85606443      | 0.84864305    |
+| -1    | 0.5      | 0.5   | 0.98071371     | 0.98223965      | 0.97563008    |
+| -1    | 5        | -16   | 0.00000000     | 0.00000000      | 0.00000000    |
+| -1    | 5        | -8.5  | 0.00039812     | 0.00039904      | 0.00039085    |
+| -1    | 5        | -1    | 0.49999976     | 0.50394920      | 0.49813474    |
+| -1    | 5        | 6.5   | 1.00001041     | 0.52275421      | 1.06847568    |
+| -1    | 5        | 14    | 1.01309803     | 0.00007890      | 0.21901183    |
+| 1     | 0.5      | -0.5  | 0.01460856     | 0.01703302      | 0.01628041    |
+| 1     | 0.5      | 0.25  | 0.14208332     | 0.14488280      | 0.14076644    |
+| 1     | 0.5      | 1     | 0.49766113     | 0.50080450      | 0.49416151    |
+| 1     | 0.5      | 1.75  | 0.85323895     | 0.85606443      | 0.84864305    |
+| 1     | 0.5      | 2.5   | 0.98071371     | 0.98223965      | 0.97563008    |
+| 1     | 5        | -14   | 0.00000000     | 0.00000000      | 0.00000000    |
+| 1     | 5        | -6.5  | 0.00039812     | 0.00039904      | 0.00039085    |
+| 1     | 5        | 1     | 0.49999976     | 0.50394920      | 0.49813474    |
+| 1     | 5        | 8.5   | 1.00001041     | 0.52275421      | 1.06847568    |
+| 1     | 5        | 16    | 1.01309803     | 0.00007890      | 0.21901183    |
+
+: Numerical approximation by different quadrature rules.
+
+We can observe that the results from the three quadrature rules are very close across the whole distribution when $\sigma$ is low. However, when the $\sigma$ is high, we start getting odd results in the upper tail of the distribution, like probabilities above 1, for example.
+
+### 2. Multidimensional integral
+
+Next, I approximate the following multidimensional integral by four methods: the product of single dimensional Gauss-Legendre quadrature rule (GL), Monte Carlo (MC), Crude Monte Carlo (CMC) and Crude Monte Carlo using the Halton low-discrepancy sequence (CMCH).
+
+For the GL and MC approximation and because the variables are independent, I estimated first the individual probabilities. The resulting integral is the product of these probabilities.
+
+<!-- $$\begin{align*} -->
+<!-- P(x_1>x_2,x_1>x_3,x_1>x_4)=&P(x_1>x_2)P(x_1>x_3)P(x_1>x_4) \\ -->
+<!-- =&(1-P(x_2<x_1))(1-P(x_3<x_1))(1-P(x_4<x_1)) \\ -->
+<!-- =&\left(1-\int_{-\infty}^{\infty}\int_{-\infty}^{x_1}\phi(x_2)dx_2dx_1\right)\left(1-\int_{-\infty}^{\infty}\int_{-\infty}^{x_1}\phi(x_3)dx_3dx_1\right)\left(1-\int_{-\infty}^{\infty}\int_{-\infty}^{x_1}\phi(x_4)dx_4dx_1\right) -->
+<!-- \end{align*}$$ -->
+
+$$\begin{aligned}
+P(x_1>x_2,x_1>x_3,x_1>x_4)=&P(x_1>x_2)P(x_1>x_3)P(x_1>x_4) \\
+=&(1-P(x_2<x_1))(1-P(x_3<x_1))(1-P(x_4<x_1)) \\
+=&\left(1-\int_{-\infty}^{x_1}\phi(x_2)dx_2\right)\left(1-\int_{-\infty}^{x_1}\phi(x_3)dx_3\right)\left(1-\int_{-\infty}^{x_1}\phi(x_4)dx_4\right)
+\end{aligned}$$
+
+Then, with the following COV, we can estimate with GL quadrature.
+
+<!-- $$\begin{aligned} -->
+<!-- \int_{-\infty}^{\infty}\int_{-\infty}^{x_1}\phi(x_i)dx_idx_1=&\int_{-\infty}^{\infty}\int_{-1}^{1}\phi\left(x_1+\frac{z-1}{z+1}\right)\frac{2}{(z+1)^2}dzdx_1 \\ -->
+<!-- =&\int_{-1}^{1}\int_{-1}^{1}\phi\left(\frac{y}{y^2-1}+\frac{z-1}{z+1}\right)\frac{2}{(z+1)^2}\frac{-2}{(y^2-1)}dzdy  -->
+<!-- \end{aligned}$$ -->
+
+$$\begin{aligned}
+\int_{-\infty}^{x_1}\phi(x_i)dx_i=&\int_{-1}^{1}\phi\left(x_1+\frac{z-1}{z+1}\right)\frac{2}{(z+1)^2}dz
+\end{aligned}$$
+
+To approximate the MC integrals, I use the Halton sequence. Therefore, I use the COV:
+
+$$\begin{aligned}
+\int_{-\infty}^{x_1}\phi(x_i)dx_i=&\int_{0}^{1}\phi\left(x_1+\frac{z-1}{z}\right)\frac{1}{z^2}dz
+\end{aligned}$$
+
+For the CMM, I sample from the function given in the module *integration.f90* `Sample_Multivariate_Normal`. Then, $N^{-1}\sum\mathbb{I}\{x_1>x_2,x_1>x_3,x_1>x_4\}$. Likewise, for the CMCH, I used the function `P_CDF_Normal_Inverse_Ran`.
+
+| Method       |     $\int_R$      |
+|:-------------|:-----------------:|
+| GL           | 0.101849487014689 |
+| MC (n=20)    | 0.172856868591144 |
+| MC (n=25)    | 0.137575375385035 |
+| MC (n=50)    | 0.164635226015892 |
+| MC (n=100)   | 0.175560111584887 |
+| CMC (n=20)   | 0.250000000000000 |
+| CMC (n=25)   | 0.240000000000000 |
+| CMC (n=50)   | 0.240000000000000 |
+| CMC (n=100)  | 0.230000000000000 |
+| CMCH (n=20)  | 0.250000000000000 |
+| CMCH (n=25)  | 0.240000000000000 |
+| CMCH (n=50)  | 0.220000000000000 |
+| CMCH (n=100) | 0.230000000000000 |
+: Multivariate numerical integration by different methods.
+
+In general, crude Monte Carlo methods are more intuitive and easy to code. There is not too much difference in terms of time, but I imagine that MC might be less efficient than quadrature rules and Monte Carlo. On the other hand, Crude Monte Carlo methods were sensitive to the seed, however this sensitivity diminished if low-discrepancy sequences are used.
+
+In particular, I'm still a bit confused because regarding the multivariate integrals with quadrature rules and COV. My first attempt was to multiply by the derivative of the two transformations (Jacobian), fixing one variable, but this gave me weird results. I ended up dividing by the derivative of the variable that I'm integrating out (and the weights of the rules for the fixed variable and the running variable).
+
