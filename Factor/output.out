@@ -1,0 +1,18 @@
+Value                    42367.6240449163160520
+Number of parameter        19
+ 
+ 
+measurement equation
+bm      0.94346612      1.05099146 am      1.00000000  variance      0.92126104
+ 
+Outcome d=0
+b0      0.66891019     -0.90511937 a0      1.78190762  variance      1.53527203
+ 
+Outcome d=1
+b1      2.03173986      0.94316997 a1      0.44922150  variance      1.94268474
+ 
+Choice equation
+gx      0.85349442     -0.77042578 gz      0.95898314 loading      0.90443373  variance      1.00000000
+ 
+Factor
+Means      0.89384445     -1.21612342  Variances      0.72278002      1.07884118  Weights      0.57637059      0.42362941

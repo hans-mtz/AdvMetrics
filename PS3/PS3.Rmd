@@ -1,0 +1,46 @@
+---
+title: "Advanced Metrics"
+subtitle: "Problem Set 3: Indirect inference"
+author: "Hans Martinez"
+date: "`r format(Sys.time(),'%D')`"
+linkcolor: red
+urlcolor: red
+output:
+  html_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+res<-read.table("results.txt")
+sigma <- read.table("sigma_inv.txt")
+```
+
+The code and the report can be found in my [github repo](https://github.com/hans-mtz/AdvMetrics/tree/master/PS3)
+
+### MSLE (Probit)
+
+For the first question, I used the `Nelder_Meade` routine in `simplex.f90`. For the second, I use `BFGS` and smooth the dependent variable as indicated in the assignment. For both questions, I used a recursive function instead of the traditional loop. 
+
+For the last question, I bootstrapped the data 100 times and used the unbiased bootstrap estimator. I used the Cholesky decomposition routine from Intel `LAPACK95` called `POTRI` to invert the matrix. I found that using intrinsic FORTRAN command `MATMUL`, when estimating $\Sigma^{-1}$, increases significantly the processing time when dealing with large matrices. I opted to use a `forall` command doing operations element by element, which significantly reduced time. 
+
+The results of the estimations are displayed in table 1. Table 2 displays the bootstrapped weight matrix. The difference between the estimators can not be observed in the table but the results to 16 digits are located in a file called `results.txt` in the github repo.
+
+
+```{r, warning=FALSE}
+
+nom <- c("LPM","NM Indicator","BFGS Smooth","NM Indicator WM","BFGS Smooth WM")
+row.names(res) <- nom
+cols <- c("$\\alpha$","$\\lambda$","$\\gamma$")
+knitr::kable(res, col.names = cols, digits = 10, caption = "Indirect inference Probit")
+
+```
+
+```{r, warning=FALSE}
+
+
+knitr::kable(sigma, digits = 5, caption = "Bootstrapped weight matrix $\\Sigma^{-1}$", row.names = FALSE, col.names = NULL)
+
+```
