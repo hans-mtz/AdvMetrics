@@ -1,0 +1,1987 @@
+Last login: Mon Mar 22 10:42:15 on console
+:: initializing oneAPI environment ...
+   ZSH version = 5.8
+:: advisor -- latest
+:: intelpython -- latest
+:: ippcp -- latest
+:: dnnl -- latest
+:: tbb -- latest
+:: mkl -- latest
+:: dev-utilities -- latest
+:: ipp -- latest
+:: vtune_profiler -- latest
+:: dal -- latest
+:: compiler -- latest
+:: oneAPI environment initialized ::
+(base) hans@dyn172-30-7-80 ~ % admet
+(base) hans@dyn172-30-7-80 AdvMetrics % cd PS3
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+wmod.f90(177): error #5082: Syntax error, found END-OF-STATEMENT when expecting one of: THEN
+    else if (ind==0)
+--------------------^
+wmod.f90(209): error #5082: Syntax error, found END-OF-STATEMENT when expecting one of: THEN
+    else if (ind==0)
+--------------------^
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [BETA]
+  function b_starm(theta,smooth) result(beta)
+----------------------------------------^
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [B_STARM]
+  function b_starm(theta,smooth) result(beta)
+-----------^
+wmod.f90(178): error #6633: The type of the actual argument differs from the type of the dummy argument.   [SMOOTH]
+      b_s=b_starm(theta_hat,smooth)
+----------------------------^
+wmod.f90(210): error #6633: The type of the actual argument differs from the type of the dummy argument.   [SMOOTH]
+      b_s=b_starm(theta_hat,smooth)
+----------------------------^
+compilation aborted for wmod.f90 (code 1)
+make: *** [wmod.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+wmod.f90(33): error #6418: This name has already been assigned a data type.   [SMOOTH]
+    logical, INTENT(IN) :: smooth
+---------------------------^
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [BETA]
+  function b_starm(theta,smooth) result(beta)
+----------------------------------------^
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [B_STARM]
+  function b_starm(theta,smooth) result(beta)
+-----------^
+compilation aborted for wmod.f90 (code 1)
+make: *** [wmod.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [BETA]
+  function b_starm(theta,smooth) result(beta)
+----------------------------------------^
+wmod.f90(19): error #6404: This name does not have a type, and must have an explicit type.   [B_STARM]
+  function b_starm(theta,smooth) result(beta)
+-----------^
+compilation aborted for wmod.f90 (code 1)
+make: *** [wmod.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+ OLS =    2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+ OLS =    2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make      
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+main.f90(112): error #6404: This name does not have a type, and must have an explicit type.   [THETAA_BFGS]
+  theta_s=thetaa_bfgs
+----------^
+compilation aborted for main.f90 (code 1)
+make: *** [main.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+main.f90(155): error #6404: This name does not have a type, and must have an explicit type.   [THETAA_BFGS]
+  theta_s=thetaa_bfgs
+----------^
+compilation aborted for main.f90 (code 1)
+make: *** [main.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    2.66666666666667     
+   2.66666666666667       -1.33333333333333     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34364851264104     
+  0.112878916170728       -3.87337556942610     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    3.00000000000000     
+   3.00000000000000       -1.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    143.127936225064     
+  -3.34923303461189       -95.9928725797897     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+wmod.f90(98): error #5082: Syntax error, found END-OF-STATEMENT when expecting one of: ( % . = =>
+               t2(N_covariates)
+-------------------------------^
+wmod.f90(104): error #6404: This name does not have a type, and must have an explicit type.   [T2]
+    t2=theta
+----^
+wmod.f90(104): error #6366: The shapes of the array expressions do not conform.   [T2]
+    t2=theta
+----^
+wmod.f90(105): error #6362: The data types of the argument(s) are invalid.   [MATMUL]
+    xb=MATMUL(t1,t2)
+-----------------^
+wmod.f90(105): error #6361: An array-valued argument is required in this context.   [MATMUL]
+    xb=MATMUL(t1,t2)
+-----------------^
+wmod.f90(105): error #6366: The shapes of the array expressions do not conform.   [XB]
+    xb=MATMUL(t1,t2)
+----^
+compilation aborted for wmod.f90 (code 1)
+make: *** [wmod.o] Error 1
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+
+Intel MKL ERROR: Parameter 0 was incorrect on entry to GELS.
+ MLSE theta (smooth) BFGS (sampling u=1)=    6.55611712591246     
+  0.628716089792188       -6.56316691111443     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+make: `myp' is up to date.
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.00000000000000     
+   1.00000000000000       -3.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.00000000000000     
+   1.00000000000000       -3.00000000000000     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+make: `myp' is up to date.
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ sampling u=1
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.000000000000000E+000   1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.792309657984456       0.102200577511407      -0.439155423209025     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233146460236789E-019  0.999985890461619       9.591485174567098E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144413947226E-019  0.999985890448669       9.591476524122579E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233148312108021E-019  0.999985890462908       9.591491137395055E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.168579128398223E-024  0.585501832417737       2.962802078363366E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.108430341224161E-022  0.996849449737345       1.685753466202044E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.709446640838572E-020  0.999861073136751       6.568207164223355E-015
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.277884291367303E-020  0.999961729127217       2.977610449106080E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.372911823978951E-019  0.999978245450856       5.773687878626326E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.807824440630398E-019  0.999982971298785       7.693915436152718E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.037370439228492E-019  0.999984689918049       8.715883879822371E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.145917065205703E-019  0.999985381125272       9.200925748897016E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.194838019858289E-019  0.999985671487988       9.419880851058289E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.216428166012404E-019  0.999985795777518       9.516579270640950E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.225869890135861E-019  0.999985849415027       9.558879928761608E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.229982554780977E-019  0.999985872644452       9.577307855556113E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.231770880136126E-019  0.999985882720150       9.585321399648918E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232547922191994E-019  0.999985887093369       9.588803437138892E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232885443447387E-019  0.999985888992054       9.590315934916007E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233032030492728E-019  0.999985889816493       9.590972822796443E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233095689397579E-019  0.999985890174493       9.591258092537031E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233123332622704E-019  0.999985890329945       9.591381968099525E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233135333015985E-019  0.999985890397429       9.591435744604824E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233140535268000E-019  0.999985890426683       9.591459057089172E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233142774699068E-019  0.999985890439276       9.591469092494026E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233143707506739E-019  0.999985890444521       9.591473272619610E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144046720541E-019  0.999985890446429       9.591474792714468E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144122468303E-019  0.999985890446855       9.591475132157705E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+  0.720000000000000        1.00000000000000       0.990000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.650000000000000        1.00000000000000       0.980000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.990000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.190000000000000       0.990000000000000       0.670000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.798929388043587       0.101710752672855      -0.442436370521846     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770630446337128E-012  0.651303409354186       5.443175148713954E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628823862883E-012  0.651303374360462       5.443170239589619E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770631914659804E-012  0.651303412836651       5.443178532616816E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  9.265499302271695E-018  0.249694961734139       1.681395633408627E-013
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  4.050402565299006E-015  0.385019860127566       9.566682150815902E-011
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.355396198601014E-013  0.543477564410152       3.727469248841040E-009
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.770532127705226E-013  0.609316132401008       1.689798443199943E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.088562486528859E-012  0.634089574596127       3.276574784193990E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.433398590209587E-012  0.644003750486545       4.366304538280447E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.615402388333625E-012  0.648165692584943       4.946271614933215E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.701467483709052E-012  0.649946777308523       5.221532785479343E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.740256221738642E-012  0.650715380953826       5.345789747907841E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.757374745510636E-012  0.651048244566617       5.400666072014292E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.764860956028317E-012  0.651192622668264       5.424671682188164E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.768121830100233E-012  0.651255287924116       5.435129524740132E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.769539768176524E-012  0.651282494784602       5.439677208430898E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770155873918734E-012  0.651294308452399       5.441653263584167E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770423489786406E-012  0.651299438420890       5.442511605586103E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770539716598148E-012  0.651301666107828       5.442884389247551E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770590190850795E-012  0.651302633480569       5.443046279734147E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770612108776283E-012  0.651303053542207       5.443116579076479E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770621623719821E-012  0.651303235896204       5.443147097226162E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770625748512531E-012  0.651303314947546       5.443160327053672E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770627524125986E-012  0.651303348976978       5.443166022142722E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628263736162E-012  0.651303363151512       5.443168394362734E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628532694005E-012  0.651303368306053       5.443169257016101E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628592753341E-012  0.651303369457082       5.443169449650014E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=100)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.000000000000000E+000   1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.792309657984456       0.102200577511407      -0.439155423209025     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233146460236789E-019  0.999985890461619       9.591485174567098E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144413947226E-019  0.999985890448669       9.591476524122579E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233148312108021E-019  0.999985890462908       9.591491137395055E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.168579128398223E-024  0.585501832417737       2.962802078363366E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.108430341224161E-022  0.996849449737345       1.685753466202044E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.709446640838572E-020  0.999861073136751       6.568207164223355E-015
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.277884291367303E-020  0.999961729127217       2.977610449106080E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.372911823978951E-019  0.999978245450856       5.773687878626326E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.807824440630398E-019  0.999982971298785       7.693915436152718E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.037370439228492E-019  0.999984689918049       8.715883879822371E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.145917065205703E-019  0.999985381125272       9.200925748897016E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.194838019858289E-019  0.999985671487988       9.419880851058289E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.216428166012404E-019  0.999985795777518       9.516579270640950E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.225869890135861E-019  0.999985849415027       9.558879928761608E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.229982554780977E-019  0.999985872644452       9.577307855556113E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.231770880136126E-019  0.999985882720150       9.585321399648918E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232547922191994E-019  0.999985887093369       9.588803437138892E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232885443447387E-019  0.999985888992054       9.590315934916007E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233032030492728E-019  0.999985889816493       9.590972822796443E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233095689397579E-019  0.999985890174493       9.591258092537031E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233123332622704E-019  0.999985890329945       9.591381968099525E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233135333015985E-019  0.999985890397429       9.591435744604824E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233140535268000E-019  0.999985890426683       9.591459057089172E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233142774699068E-019  0.999985890439276       9.591469092494026E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233143707506739E-019  0.999985890444521       9.591473272619610E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144046720541E-019  0.999985890446429       9.591474792714468E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144122468303E-019  0.999985890446855       9.591475132157705E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+  0.720000000000000        1.00000000000000       0.990000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.650000000000000        1.00000000000000       0.980000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.990000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.190000000000000       0.990000000000000       0.670000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  1.770628599426612E-012  0.651303369584974       5.443169471053799E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770630446337128E-012  0.651303409354186       5.443175148713954E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628823862883E-012  0.651303374360462       5.443170239589619E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770631914659804E-012  0.651303412836651       5.443178532616816E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106385901788E-021  0.129528332683493       1.428598990520075E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688108027231561E-021  0.129528359473141       1.428600379533277E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106514431533E-021  0.129528334756487       1.428599111680743E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688109864164727E-021  0.129528367080547       1.428601607729185E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350395387719E-022  7.722011623365245E-002  1.030656217966293E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064351420219683E-022  7.722013585754268E-002  1.030657210355116E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350469257105E-022  7.722011763137301E-002  1.030656297644803E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064352615071260E-022  7.722014198566633E-002  1.030658129076595E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473566811738E-023  5.719720951034749E-002  2.386482525838499E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286475756405723E-023  5.719722323284471E-002  2.386484811203990E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473716931192E-023  5.719721044002002E-002  2.386482700371139E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286478367056505E-023  5.719722773757555E-002  2.386486980563962E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665769812874987E-024  4.632785551503387E-002  8.438909331795835E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665777125288809E-024  4.632786720680906E-002  8.438917381711079E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665770295759689E-024  4.632785627796727E-002  8.438909923931849E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665785982332815E-024  4.632787117903929E-002  8.438925158536769E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879024194523E-024  3.501693025542952E-002  2.567040213342088E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193881107591405E-024  3.501694140530612E-002  2.567042651108036E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879155703399E-024  3.501693095089667E-002  2.567040384746742E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193883676614439E-024  3.501694534110009E-002  2.567045053554173E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147068261322E-024  2.886952440361308E-002  1.324419818246571E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094148104713670E-024  2.886953531520266E-002  1.324421072829305E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147131993418E-024  2.886952506662351E-002  1.324419904178732E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094149395442972E-024  2.886953924780749E-002  1.324422322889040E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713313853550E-024  2.830603264497399E-002  1.245499240228473E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025714285254883E-024  2.830604352094460E-002  1.245500419777977E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713373438057E-024  2.830603330418763E-002  1.245499320821687E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025715496080884E-024  2.830604744822100E-002  1.245501596270083E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023447958243019E-024  2.828677208420489E-002  1.242882351067569E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448927491247E-024  2.828678295890270E-002  1.242883528129388E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448017690417E-024  2.828677274328555E-002  1.242882431483980E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023450135671252E-024  2.828678688597646E-002  1.242884702181059E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444803514650E-024  2.828674529644140E-002  1.242878715180459E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023445772759876E-024  2.828675617113747E-002  1.242879892238818E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444862961865E-024  2.828674595552175E-002  1.242878795596627E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023446980936178E-024  2.828676009821085E-002  1.242881066287090E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.000000000000000E+000   1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.792309657984456       0.102200577511407      -0.439155423209025     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233146460236789E-019  0.999985890461619       9.591485174567098E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144413947226E-019  0.999985890448669       9.591476524122579E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233148312108021E-019  0.999985890462908       9.591491137395055E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.168579128398223E-024  0.585501832417737       2.962802078363366E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.108430341224161E-022  0.996849449737345       1.685753466202044E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.709446640838572E-020  0.999861073136751       6.568207164223355E-015
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.277884291367303E-020  0.999961729127217       2.977610449106080E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.372911823978951E-019  0.999978245450856       5.773687878626326E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.807824440630398E-019  0.999982971298785       7.693915436152718E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.037370439228492E-019  0.999984689918049       8.715883879822371E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.145917065205703E-019  0.999985381125272       9.200925748897016E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.194838019858289E-019  0.999985671487988       9.419880851058289E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.216428166012404E-019  0.999985795777518       9.516579270640950E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.225869890135861E-019  0.999985849415027       9.558879928761608E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.229982554780977E-019  0.999985872644452       9.577307855556113E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.231770880136126E-019  0.999985882720150       9.585321399648918E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232547922191994E-019  0.999985887093369       9.588803437138892E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232885443447387E-019  0.999985888992054       9.590315934916007E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233032030492728E-019  0.999985889816493       9.590972822796443E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233095689397579E-019  0.999985890174493       9.591258092537031E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233123332622704E-019  0.999985890329945       9.591381968099525E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233135333015985E-019  0.999985890397429       9.591435744604824E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233140535268000E-019  0.999985890426683       9.591459057089172E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233142774699068E-019  0.999985890439276       9.591469092494026E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233143707506739E-019  0.999985890444521       9.591473272619610E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144046720541E-019  0.999985890446429       9.591474792714468E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144122468303E-019  0.999985890446855       9.591475132157705E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+  0.720000000000000        1.00000000000000       0.990000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.650000000000000        1.00000000000000       0.980000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.990000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.190000000000000       0.990000000000000       0.670000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  1.770628599426612E-012  0.651303369584974       5.443169471053799E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770630446337128E-012  0.651303409354186       5.443175148713954E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628823862883E-012  0.651303374360462       5.443170239589619E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770631914659804E-012  0.651303412836651       5.443178532616816E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106385901788E-021  0.129528332683493       1.428598990520075E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688108027231561E-021  0.129528359473141       1.428600379533277E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106514431533E-021  0.129528334756487       1.428599111680743E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688109864164727E-021  0.129528367080547       1.428601607729185E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350395387719E-022  7.722011623365245E-002  1.030656217966293E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064351420219683E-022  7.722013585754268E-002  1.030657210355116E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350469257105E-022  7.722011763137301E-002  1.030656297644803E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064352615071260E-022  7.722014198566633E-002  1.030658129076595E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473566811738E-023  5.719720951034749E-002  2.386482525838499E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286475756405723E-023  5.719722323284471E-002  2.386484811203990E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473716931192E-023  5.719721044002002E-002  2.386482700371139E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286478367056505E-023  5.719722773757555E-002  2.386486980563962E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665769812874987E-024  4.632785551503387E-002  8.438909331795835E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665777125288809E-024  4.632786720680906E-002  8.438917381711079E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665770295759689E-024  4.632785627796727E-002  8.438909923931849E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665785982332815E-024  4.632787117903929E-002  8.438925158536769E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879024194523E-024  3.501693025542952E-002  2.567040213342088E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193881107591405E-024  3.501694140530612E-002  2.567042651108036E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879155703399E-024  3.501693095089667E-002  2.567040384746742E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193883676614439E-024  3.501694534110009E-002  2.567045053554173E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147068261322E-024  2.886952440361308E-002  1.324419818246571E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094148104713670E-024  2.886953531520266E-002  1.324421072829305E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147131993418E-024  2.886952506662351E-002  1.324419904178732E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094149395442972E-024  2.886953924780749E-002  1.324422322889040E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713313853550E-024  2.830603264497399E-002  1.245499240228473E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025714285254883E-024  2.830604352094460E-002  1.245500419777977E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713373438057E-024  2.830603330418763E-002  1.245499320821687E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025715496080884E-024  2.830604744822100E-002  1.245501596270083E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023447958243019E-024  2.828677208420489E-002  1.242882351067569E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448927491247E-024  2.828678295890270E-002  1.242883528129388E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448017690417E-024  2.828677274328555E-002  1.242882431483980E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023450135671252E-024  2.828678688597646E-002  1.242884702181059E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444803514650E-024  2.828674529644140E-002  1.242878715180459E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023445772759876E-024  2.828675617113747E-002  1.242879892238818E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444862961865E-024  2.828674595552175E-002  1.242878795596627E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023446980936178E-024  2.828676009821085E-002  1.242881066287090E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.000000000000000E+000   1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.792309657984456       0.102200577511407      -0.439155423209025     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233146460236789E-019  0.999985890461619       9.591485174567098E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144413947226E-019  0.999985890448669       9.591476524122579E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233148312108021E-019  0.999985890462908       9.591491137395055E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.168579128398223E-024  0.585501832417737       2.962802078363366E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.108430341224161E-022  0.996849449737345       1.685753466202044E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.709446640838572E-020  0.999861073136751       6.568207164223355E-015
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.277884291367303E-020  0.999961729127217       2.977610449106080E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.372911823978951E-019  0.999978245450856       5.773687878626326E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.807824440630398E-019  0.999982971298785       7.693915436152718E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.037370439228492E-019  0.999984689918049       8.715883879822371E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.145917065205703E-019  0.999985381125272       9.200925748897016E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.194838019858289E-019  0.999985671487988       9.419880851058289E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.216428166012404E-019  0.999985795777518       9.516579270640950E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.225869890135861E-019  0.999985849415027       9.558879928761608E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.229982554780977E-019  0.999985872644452       9.577307855556113E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.231770880136126E-019  0.999985882720150       9.585321399648918E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232547922191994E-019  0.999985887093369       9.588803437138892E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232885443447387E-019  0.999985888992054       9.590315934916007E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233032030492728E-019  0.999985889816493       9.590972822796443E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233095689397579E-019  0.999985890174493       9.591258092537031E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233123332622704E-019  0.999985890329945       9.591381968099525E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233135333015985E-019  0.999985890397429       9.591435744604824E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233140535268000E-019  0.999985890426683       9.591459057089172E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233142774699068E-019  0.999985890439276       9.591469092494026E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233143707506739E-019  0.999985890444521       9.591473272619610E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144046720541E-019  0.999985890446429       9.591474792714468E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144122468303E-019  0.999985890446855       9.591475132157705E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+  0.720000000000000        1.00000000000000       0.990000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.650000000000000        1.00000000000000       0.980000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.990000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.190000000000000       0.990000000000000       0.670000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  1.770628599426612E-012  0.651303369584974       5.443169471053799E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770630446337128E-012  0.651303409354186       5.443175148713954E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628823862883E-012  0.651303374360462       5.443170239589619E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770631914659804E-012  0.651303412836651       5.443178532616816E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106385901788E-021  0.129528332683493       1.428598990520075E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688108027231561E-021  0.129528359473141       1.428600379533277E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106514431533E-021  0.129528334756487       1.428599111680743E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688109864164727E-021  0.129528367080547       1.428601607729185E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350395387719E-022  7.722011623365245E-002  1.030656217966293E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064351420219683E-022  7.722013585754268E-002  1.030657210355116E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350469257105E-022  7.722011763137301E-002  1.030656297644803E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064352615071260E-022  7.722014198566633E-002  1.030658129076595E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473566811738E-023  5.719720951034749E-002  2.386482525838499E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286475756405723E-023  5.719722323284471E-002  2.386484811203990E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473716931192E-023  5.719721044002002E-002  2.386482700371139E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286478367056505E-023  5.719722773757555E-002  2.386486980563962E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665769812874987E-024  4.632785551503387E-002  8.438909331795835E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665777125288809E-024  4.632786720680906E-002  8.438917381711079E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665770295759689E-024  4.632785627796727E-002  8.438909923931849E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665785982332815E-024  4.632787117903929E-002  8.438925158536769E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879024194523E-024  3.501693025542952E-002  2.567040213342088E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193881107591405E-024  3.501694140530612E-002  2.567042651108036E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879155703399E-024  3.501693095089667E-002  2.567040384746742E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193883676614439E-024  3.501694534110009E-002  2.567045053554173E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147068261322E-024  2.886952440361308E-002  1.324419818246571E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094148104713670E-024  2.886953531520266E-002  1.324421072829305E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147131993418E-024  2.886952506662351E-002  1.324419904178732E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094149395442972E-024  2.886953924780749E-002  1.324422322889040E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713313853550E-024  2.830603264497399E-002  1.245499240228473E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025714285254883E-024  2.830604352094460E-002  1.245500419777977E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713373438057E-024  2.830603330418763E-002  1.245499320821687E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025715496080884E-024  2.830604744822100E-002  1.245501596270083E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023447958243019E-024  2.828677208420489E-002  1.242882351067569E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448927491247E-024  2.828678295890270E-002  1.242883528129388E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448017690417E-024  2.828677274328555E-002  1.242882431483980E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023450135671252E-024  2.828678688597646E-002  1.242884702181059E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444803514650E-024  2.828674529644140E-002  1.242878715180459E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023445772759876E-024  2.828675617113747E-002  1.242879892238818E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444862961865E-024  2.828674595552175E-002  1.242878795596627E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023446980936178E-024  2.828676009821085E-002  1.242881066287090E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.000000000000000E+000   1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  0.792309657984456       0.102200577511407      -0.439155423209025     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233146460236789E-019  0.999985890461619       9.591485174567098E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144413947226E-019  0.999985890448669       9.591476524122579E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233148312108021E-019  0.999985890462908       9.591491137395055E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.168579128398223E-024  0.585501832417737       2.962802078363366E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  5.108430341224161E-022  0.996849449737345       1.685753466202044E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.709446640838572E-020  0.999861073136751       6.568207164223355E-015
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.277884291367303E-020  0.999961729127217       2.977610449106080E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.372911823978951E-019  0.999978245450856       5.773687878626326E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.807824440630398E-019  0.999982971298785       7.693915436152718E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.037370439228492E-019  0.999984689918049       8.715883879822371E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.145917065205703E-019  0.999985381125272       9.200925748897016E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.194838019858289E-019  0.999985671487988       9.419880851058289E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.216428166012404E-019  0.999985795777518       9.516579270640950E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.225869890135861E-019  0.999985849415027       9.558879928761608E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.229982554780977E-019  0.999985872644452       9.577307855556113E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.231770880136126E-019  0.999985882720150       9.585321399648918E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232547922191994E-019  0.999985887093369       9.588803437138892E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.232885443447387E-019  0.999985888992054       9.590315934916007E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233032030492728E-019  0.999985889816493       9.590972822796443E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233095689397579E-019  0.999985890174493       9.591258092537031E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233123332622704E-019  0.999985890329945       9.591381968099525E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233135333015985E-019  0.999985890397429       9.591435744604824E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233140535268000E-019  0.999985890426683       9.591459057089172E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233142774699068E-019  0.999985890439276       9.591469092494026E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233143707506739E-019  0.999985890444521       9.591473272619610E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144046720541E-019  0.999985890446429       9.591474792714468E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.233144122468303E-019  0.999985890446855       9.591475132157705E-014
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.00000000000000     
+   1.00000000000000       -6.00000000000000     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    6.34378711283118     
+  0.112665613071630       -3.87339269203855     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.71223316653062     
+  0.769796692351885       -6.54526319460899     
+writing to results.txt
+  0.720000000000000        1.00000000000000       0.990000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.650000000000000        1.00000000000000       0.980000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.990000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  0.190000000000000       0.990000000000000       0.670000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+   1.00000000000000        1.00000000000000        1.00000000000000     
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+  1.770628599426612E-012  0.651303369584974       5.443169471053799E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770630446337128E-012  0.651303409354186       5.443175148713954E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770628823862883E-012  0.651303374360462       5.443170239589619E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.770631914659804E-012  0.651303412836651       5.443178532616816E-008
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106385901788E-021  0.129528332683493       1.428598990520075E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688108027231561E-021  0.129528359473141       1.428600379533277E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688106514431533E-021  0.129528334756487       1.428599111680743E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.688109864164727E-021  0.129528367080547       1.428601607729185E-016
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350395387719E-022  7.722011623365245E-002  1.030656217966293E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064351420219683E-022  7.722013585754268E-002  1.030657210355116E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064350469257105E-022  7.722011763137301E-002  1.030656297644803E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.064352615071260E-022  7.722014198566633E-002  1.030658129076595E-017
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473566811738E-023  5.719720951034749E-002  2.386482525838499E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286475756405723E-023  5.719722323284471E-002  2.386484811203990E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286473716931192E-023  5.719721044002002E-002  2.386482700371139E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.286478367056505E-023  5.719722773757555E-002  2.386486980563962E-018
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665769812874987E-024  4.632785551503387E-002  8.438909331795835E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665777125288809E-024  4.632786720680906E-002  8.438917381711079E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665770295759689E-024  4.632785627796727E-002  8.438909923931849E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  7.665785982332815E-024  4.632787117903929E-002  8.438925158536769E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879024194523E-024  3.501693025542952E-002  2.567040213342088E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193881107591405E-024  3.501694140530612E-002  2.567042651108036E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193879155703399E-024  3.501693095089667E-002  2.567040384746742E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  2.193883676614439E-024  3.501694534110009E-002  2.567045053554173E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147068261322E-024  2.886952440361308E-002  1.324419818246571E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094148104713670E-024  2.886953531520266E-002  1.324421072829305E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094147131993418E-024  2.886952506662351E-002  1.324419904178732E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.094149395442972E-024  2.886953924780749E-002  1.324422322889040E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713313853550E-024  2.830603264497399E-002  1.245499240228473E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025714285254883E-024  2.830604352094460E-002  1.245500419777977E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025713373438057E-024  2.830603330418763E-002  1.245499320821687E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.025715496080884E-024  2.830604744822100E-002  1.245501596270083E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023447958243019E-024  2.828677208420489E-002  1.242882351067569E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448927491247E-024  2.828678295890270E-002  1.242883528129388E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023448017690417E-024  2.828677274328555E-002  1.242882431483980E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023450135671252E-024  2.828678688597646E-002  1.242884702181059E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444803514650E-024  2.828674529644140E-002  1.242878715180459E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023445772759876E-024  2.828675617113747E-002  1.242879892238818E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023444862961865E-024  2.828674595552175E-002  1.242878795596627E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+  1.023446980936178E-024  2.828676009821085E-002  1.242881066287090E-019
+   2.36268686664991       2.828675147888511E-002  -1.13129285587061     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % make clean
+rm -f *.o *.mod myp
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o globvar.o globvar.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o init.o init.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o io.o io.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o wmod.o wmod.f90
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % ./myp     
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.24706393330890     
+   1.20766165981938       -5.68634146239184     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    7.27288480727630     
+   1.46349464001453       -5.64176829149090     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ MLSE theta (smooth) BFGS (sampling u=1)=    6.81544649148269     
+   1.04797418850061       -5.24038319291239     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.93384512907353     
+   1.01844894324782       -5.07973211759816     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    5.96183249078352     
+  0.132806642235670       -6.29192810101869     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.58103707434923     
+  0.343427279684613       -5.70155536309589     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ BFGS:Too many iterations
+ MLSE theta (smooth) BFGS (sampling u=1)=    6.06257667532326     
+   1.05259973453849       -4.92060089435084     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.21733293799135     
+   3.55789421012316       -6.19733351542958     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    5.27612565771445     
+  0.390825651737884       -5.92243237579300     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    13.6611934790335     
+   4.07131078349681       -13.7512431986164     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.24706393330890     
+   1.20766165981938       -5.68634146239184     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    7.27288480727630     
+   1.46349464001453       -5.64176829149090     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.35548833573520     
+  0.458248966489879       -6.81777521474717     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.91540479775672     
+  0.923121774631227       -6.34911266699363     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ MLSE theta (smooth) BFGS (sampling u=1)=    7.12208093604346     
+  8.649534336349836E-002  -4.84510017422877     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    7.21588962846937     
+  0.105168138508122       -4.69699865644306     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    6.22917570106645     
+ -0.649114698752215       -5.98463001210834     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    11.4367424874730     
+   1.89429516115212       -10.5558823824181     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ BFGS:Too many iterations
+ MLSE theta (smooth) BFGS (sampling u=1)=    6.06257667532326     
+   1.05259973453849       -4.92060089435084     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.21733293799135     
+   3.55789421012316       -6.19733351542958     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    5.27612565771445     
+  0.390825651737884       -5.92243237579300     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    13.6611934790335     
+   4.07131078349681       -13.7512431986164     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % ./myp
+ dataset read
+ OLS_0 =    2.36268686664991       2.828675147888511E-002
+  -1.13129285587061     
+ Final VCOV = 
+  1.101354645481307E-004   3530.63957073477        12024.8277688980     
+ -1.710995330780179E-005  3.397737940755784E-005   6009.19971836715     
+ -5.801183975136898E-005  7.443949826921718E-008  3.405513769126256E-005
+writing to sigma.txt
+ Final VCOV inverted = 
+   353944.335629587        3530.63957073477        12024.8277688980     
+   176915.286782931        117860.698680553        6009.19971836715     
+   602546.164408220        301111.916448789        1055124.11191006     
+writing to sigma_inv.txt
+reading from point.out
+reading from pointBFGS.out
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=1)=    6.36525313950165     
+  0.149353476533655       -3.89932392940207     
+ MLSE theta (smooth) BFGS (sampling u=1)=    6.81544649148269     
+   1.04797418850061       -5.24038319291239     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=1)=    4.11111111111111     
+   5.88888888888889       -8.55555555555555     
+ MLSE theta (smooth) BFGS W (sampling u=1)=    6.93384512907353     
+   1.01844894324782       -5.07973211759816     
+writing to results.txt
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM (sampling u=100)=    4.00000000000000     
+   4.00000000000000       -2.00000000000000     
+ MLSE theta (smooth) BFGS (sampling u=100)=    5.96183249078352     
+  0.132806642235670       -6.29192810101869     
+           1 Stopped by tolerance
+ MLSE theta (indicator) NM W  (sampling u=100)=    6.39044975040634     
+  0.119713912495529       -3.90559657674607     
+ MLSE theta (smooth) BFGS W (sampling u=100)=    6.58103707434923     
+  0.343427279684613       -5.70155536309589     
+writing to results_s100.txt
+(base) hans@dyn172-30-7-80 PS3 % make
+ifort -c -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -o main.o main.f90
+ifort -O3 -mkl -m64 -lmkl_blas95_ilp64 -lmkl_blas95_lp64 -lmkl_lapack95_ilp64 -lmkl_lapack95_lp64 -xHost -lmylib  -r16 -o myp globvar.o init.o io.o wmod.o main.o
+(base) hans@dyn172-30-7-80 PS3 % 

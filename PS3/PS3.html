@@ -11,7 +11,7 @@
 
 <meta name="author" content="Hans Martinez" />
 
-<meta name="date" content="2021-03-20" />
+<meta name="date" content="2021-03-22" />
 
 <title>Advanced Metrics</title>
 
@@ -192,7 +192,7 @@ summary {
 <h1 class="title toc-ignore">Advanced Metrics</h1>
 <h3 class="subtitle">Problem Set 3: Indirect inference</h3>
 <h4 class="author">Hans Martinez</h4>
-<h4 class="date">03/20/21</h4>
+<h4 class="date">03/22/21</h4>
 
 </div>
 
@@ -200,11 +200,14 @@ summary {
 <p>The code and the report can be found in my <a href="https://github.com/hans-mtz/AdvMetrics/tree/master/PS3">github repo</a></p>
 <div id="msle-probit" class="section level3">
 <h3>MSLE (Probit)</h3>
-<p>For the first question, I used the <code>Nelder_Meade</code> routine in <code>simplex.f90</code>. For the second, I use <code>BFGS</code> and smooth the dependent variable as indicated in the assignment. For both questions, I used a recursive function instead of the traditional loop.</p>
-<p>For the last question, I bootstrapped the data 100 times and used the unbiased bootstrap estimator. I used the Cholesky decomposition routine from Intel <code>LAPACK95</code> called <code>POTRI</code> to invert the matrix. I found that using intrinsic FORTRAN command <code>MATMUL</code>, when estimating <span class="math inline">\(\Sigma^{-1}\)</span>, increases significantly the processing time when dealing with large matrices. I opted to use a <code>forall</code> command doing operations element by element, which significantly reduced time.</p>
-<p>The results of the estimations are displayed in table 1. Table 2 displays the bootstrapped weight matrix. The difference between the estimators can not be observed in the table but the results to 16 digits are located in a file called <code>results.txt</code> in the github repo.</p>
+<p>For the first question, I used the <code>Nelder_Meade</code> (NM) routine in <code>simplex.f90</code>. For the second, I use <code>BFGS</code> (BFGS) and smooth the dependent variable as indicated in the assignment. I tried sampling once from <span class="math inline">\(U_I\)</span> (<span class="math inline">\(s=1\)</span>) and 100 times (<span class="math inline">\(s=100\)</span>).</p>
+<p>For the last question, I bootstrapped the data 100 times and used the unbiased bootstrap estimator. I used the Cholesky decomposition routine from Intel <code>LAPACK95</code> called <code>POTRI</code> to invert the matrix. I found that using intrinsic FORTRAN command <code>MATMUL</code>, when estimating the weight matrix (WM) <span class="math inline">\(\Sigma^{-1}\)</span>, increases significantly the processing time when dealing with large matrices. I opted to use a <code>forall</code> command doing operations element by element, which significantly reduced time, and leaving <code>matmul</code> for only small matrices operations.</p>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p>The results of the estimations for <span class="math inline">\(s=1\)</span> are displayed in table 1. Table 2 displays the estimations when <span class="math inline">\(s=100\)</span> times and table 2 displays the bootstrapped weight matrix.</p>
 <table>
-<caption>Indirect inference Probit</caption>
+<caption>Indirect inference Probit, s=1</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -215,34 +218,65 @@ summary {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">LPM</td>
-<td align="right">2.362687</td>
-<td align="right">0.02828675</td>
-<td align="right">-1.131293</td>
+<td align="left">NM (Indicator)</td>
+<td align="right">6.365253</td>
+<td align="right">0.1493535</td>
+<td align="right">-3.899324</td>
 </tr>
 <tr class="even">
-<td align="left">NM Indicator</td>
-<td align="right">2.362687</td>
-<td align="right">0.02828673</td>
-<td align="right">-1.131293</td>
+<td align="left">BFGS (Smooth)</td>
+<td align="right">6.815446</td>
+<td align="right">1.0479742</td>
+<td align="right">-5.240383</td>
 </tr>
 <tr class="odd">
-<td align="left">BFGS Smooth</td>
-<td align="right">2.362687</td>
-<td align="right">0.02828675</td>
-<td align="right">-1.131293</td>
+<td align="left">NM (Indicator) <span class="math inline">\(\Sigma\)</span></td>
+<td align="right">4.111111</td>
+<td align="right">5.8888889</td>
+<td align="right">-8.555556</td>
 </tr>
 <tr class="even">
-<td align="left">NM Indicator WM</td>
-<td align="right">2.362687</td>
-<td align="right">0.02828676</td>
-<td align="right">-1.131293</td>
+<td align="left">BFGS (Smooth) <span class="math inline">\(\Sigma\)</span></td>
+<td align="right">6.933845</td>
+<td align="right">1.0184489</td>
+<td align="right">-5.079732</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Indirect inference Probit, s=100</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right"><span class="math inline">\(\alpha\)</span></th>
+<th align="right"><span class="math inline">\(\lambda\)</span></th>
+<th align="right"><span class="math inline">\(\gamma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NM (Indicator)</td>
+<td align="right">4.000000</td>
+<td align="right">4.0000000</td>
+<td align="right">-2.000000</td>
+</tr>
+<tr class="even">
+<td align="left">BFGS (Smooth)</td>
+<td align="right">5.961832</td>
+<td align="right">0.1328066</td>
+<td align="right">-6.291928</td>
 </tr>
 <tr class="odd">
-<td align="left">BFGS Smooth WM</td>
-<td align="right">2.362687</td>
-<td align="right">0.02828677</td>
-<td align="right">-1.131293</td>
+<td align="left">NM (Indicator) <span class="math inline">\(\Sigma\)</span></td>
+<td align="right">6.390450</td>
+<td align="right">0.1197139</td>
+<td align="right">-3.905597</td>
+</tr>
+<tr class="even">
+<td align="left">BFGS (Smooth) <span class="math inline">\(\Sigma\)</span></td>
+<td align="right">6.581037</td>
+<td align="right">0.3434273</td>
+<td align="right">-5.701555</td>
 </tr>
 </tbody>
 </table>
@@ -250,22 +284,26 @@ summary {
 <caption>Bootstrapped weight matrix <span class="math inline">\(\Sigma^{-1}\)</span></caption>
 <tbody>
 <tr class="odd">
-<td align="right">353774.631</td>
-<td align="right">176861.134</td>
-<td align="right">602237.5</td>
+<td align="right">353944.34</td>
+<td align="right">176915.3</td>
+<td align="right">602546.2</td>
 </tr>
 <tr class="even">
-<td align="right">3532.956</td>
-<td align="right">117847.620</td>
-<td align="right">301053.9</td>
+<td align="right">3530.64</td>
+<td align="right">117860.7</td>
+<td align="right">301111.9</td>
 </tr>
 <tr class="odd">
-<td align="right">12030.204</td>
-<td align="right">6013.818</td>
-<td align="right">1054542.9</td>
+<td align="right">12024.83</td>
+<td align="right">6009.2</td>
+<td align="right">1055124.1</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>I found that NM performs better than BFGS. It is more consistent and depends a little less on initial guess. BFGS is all over the place. In particular, NM does better when <span class="math inline">\(s=1\)</span> without weight matrix, but bad when we use the optimal weight matrix. BFGS is consistent giving same initial guess with or without weight matrix. When <span class="math inline">\(s=100\)</span>, NM does worse than BFGS. However, NM is back in the game when using the WM, whereas BFGS is somewhat off.</p>
 </div>
 
 

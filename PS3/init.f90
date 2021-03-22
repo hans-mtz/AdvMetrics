@@ -43,13 +43,24 @@ CONTAINS
    subroutine initiate()
       integer :: i,j
 
-      CALL SET_SEED(176765183,581076745,294342786,765109823)
+      CALL SET_SEED(3,4,2,1)
 
       ! Sampling from U_I ~ N(0,1)
       do i=1,N_individuals
         do j=1,s
-           uni(i,j)=Sample_Uniform(1.0d0, DBLE(N_individuals))
+           ! uni(i,j)=Sample_Uniform(1.0d0, DBLE(N_individuals))
            nor(i,j)=Sample_Normal(0.0d0,1.0d0)
+        enddo
+      enddo
+
+      do i=1,N_individuals
+         nor_v(i)=Sample_Normal(0.0d0,1.0d0)
+      enddo
+
+      do i=1,N_individuals
+        do j=1,n_boot
+           uni(i,j)=Sample_Uniform(1.0d0, DBLE(N_individuals))
+           ! nor(i,j)=Sample_Normal(0.0d0,1.0d0)
         enddo
       enddo
 

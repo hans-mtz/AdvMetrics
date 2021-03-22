@@ -6,8 +6,8 @@ date: "`r format(Sys.time(),'%D')`"
 linkcolor: red
 urlcolor: red
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -15,6 +15,7 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 res<-read.table("results.txt")
+res100<-read.table("results_s100.txt")
 sigma <- read.table("sigma_inv.txt")
 ```
 
@@ -22,19 +23,29 @@ The code and the report can be found in my [github repo](https://github.com/hans
 
 ### MSLE (Probit)
 
-For the first question, I used the `Nelder_Meade` routine in `simplex.f90`. For the second, I use `BFGS` and smooth the dependent variable as indicated in the assignment. For both questions, I used a recursive function instead of the traditional loop. 
+For the first question, I used the `Nelder_Meade` (NM) routine in `simplex.f90`. For the second, I use `BFGS` (BFGS) and smooth the dependent variable as indicated in the assignment. I tried sampling once from $U_I$ ($s=1$) and 100 times ($s=100$). 
 
-For the last question, I bootstrapped the data 100 times and used the unbiased bootstrap estimator. I used the Cholesky decomposition routine from Intel `LAPACK95` called `POTRI` to invert the matrix. I found that using intrinsic FORTRAN command `MATMUL`, when estimating $\Sigma^{-1}$, increases significantly the processing time when dealing with large matrices. I opted to use a `forall` command doing operations element by element, which significantly reduced time. 
+For the last question, I bootstrapped the data 100 times and used the unbiased bootstrap estimator. I used the Cholesky decomposition routine from Intel `LAPACK95` called `POTRI` to invert the matrix. I found that using intrinsic FORTRAN command `MATMUL`, when estimating the weight matrix (WM) $\Sigma^{-1}$, increases significantly the processing time when dealing with large matrices. I opted to use a `forall` command doing operations element by element, which significantly reduced time, and leaving `matmul` for only small matrices operations.
 
-The results of the estimations are displayed in table 1. Table 2 displays the bootstrapped weight matrix. The difference between the estimators can not be observed in the table but the results to 16 digits are located in a file called `results.txt` in the github repo.
+## Results 
 
+The results of the estimations for $s=1$ are displayed in table 1. Table 2 displays the estimations when $s=100$ times and table 2 displays the bootstrapped weight matrix.
 
 ```{r, warning=FALSE}
 
-nom <- c("LPM","NM Indicator","BFGS Smooth","NM Indicator WM","BFGS Smooth WM")
+nom <- c("NM (Indicator)","BFGS (Smooth)","NM (Indicator) $\\Sigma$","BFGS (Smooth) $\\Sigma$")
 row.names(res) <- nom
 cols <- c("$\\alpha$","$\\lambda$","$\\gamma$")
-knitr::kable(res, col.names = cols, digits = 10, caption = "Indirect inference Probit")
+knitr::kable(res, col.names = cols, digits = 10, caption = "Indirect inference Probit, s=1")
+
+```
+
+```{r, warning=FALSE}
+
+# nom <- c("NM (Indicator)","BFGS (Smooth)","NM (Indicator) $\\Sigma$","BFGS (Smooth) $\\Sigma$")
+row.names(res100) <- nom
+cols <- c("$\\alpha$","$\\lambda$","$\\gamma$")
+knitr::kable(res100, col.names = cols, digits = 10, caption = "Indirect inference Probit, s=100")
 
 ```
 
@@ -44,3 +55,8 @@ knitr::kable(res, col.names = cols, digits = 10, caption = "Indirect inference P
 knitr::kable(sigma, digits = 5, caption = "Bootstrapped weight matrix $\\Sigma^{-1}$", row.names = FALSE, col.names = NULL)
 
 ```
+
+
+## Conclusions
+
+I found that NM performs better than BFGS. It is more consistent and  depends a little less on initial guess. BFGS is all over the place. In particular, NM does better when $s=1$ without weight matrix, but bad when we use the optimal weight matrix. BFGS is consistent giving same initial guess with or without weight matrix. When $s=100$, NM does worse than BFGS. However, NM is back in the game when using the WM, whereas BFGS is somewhat off.
