@@ -6,8 +6,8 @@ date: "`r format(Sys.time(),'%D')`"
 linkcolor: red
 urlcolor: red
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE)
 load("final.RData")
 ```
 
-The code and the report can be found in my [github repo](https://github.com/hans-mtz/AdvMetrics/tree/master/Final)
+The code and the report can be found in my [github repo](https://github.com/hans-mtz/AdvMetrics)
 
 ## Q1 Borrowing constraint
 
@@ -38,7 +38,7 @@ We can see there's that for a certain level of initial assets $A_1$, agents choo
 
 <!-- !["Figure !"](t1w.png) !["Figure 2"](t2w.png) -->
 
-```{r, out.width="50%", fig.show='hold', fig.cap="Figures 1 and 2 show the results for the value function, savings and labour on the grid of assets for periods 1 and 2, respectively."}
+```{r, out.width="50%", fig.show='hold', fig.cap="Value function, savings and labour on the grid of assets for periods 1 and 2, respectively."}
 knitr::include_graphics(c("t1w.png","t2w.png"))
 ```
 
@@ -51,7 +51,7 @@ I used MPI to parallelize the indirect inference routine. The idea is to distrib
 knitr::kable(iivt)
 ```
 
-```{r, out.width=c("100%","50%"), fig.show='hold', fig.cap="Base case"}
+```{r, out.width=c("100%","50%"), fig.show='hold', fig.cap="Asset distribution and unemployment rate for base case"}
 knitr::include_graphics(c("asdist_0.png"))
 knitr::include_graphics(c("emp_0.png"))
 ```
