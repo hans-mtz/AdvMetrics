@@ -1,0 +1,6 @@
+﻿Parameter,True value,Initial guess,Estimated value
+$\sigma_\varepsilon^2$,1,2,1.045
+$\gamma$,2,1,2.29
+$\alpha$,1.1,1.01,1.249
+$\mu$,0,-2,0.057
+$\delta$,0.2,0.5,0.193
