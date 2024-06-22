@@ -1,8 +1,9 @@
-MODULE SIMPLEX
+# 1 "/Volumes/SSD Hans 1/Github/AdvMetrics/Final/simplex1.f90"
+MODULE SIMPLEX1
   IMPLICIT NONE
 
 CONTAINS
-  SUBROUTINE Nelder_Meade(x,ftol,func,id,itmax)
+  SUBROUTINE Nelder_Meade1(x,ftol,func,id,itmax)
     USE nrutil, ONLY : assert_eq,imaxloc,iminloc,nrerror,swap
     IMPLICIT NONE
     REAL(8), INTENT(IN) :: ftol
@@ -16,11 +17,11 @@ CONTAINS
        END FUNCTION func
     END INTERFACE
     INTEGER, INTENT(IN) :: itmax
-    !INTEGER, PARAMETER :: ITMAX=100000
+!INTEGER, PARAMETER :: ITMAX=100000
     REAL(8), PARAMETER :: TINY=1.0e-12
     INTEGER :: ihi,ndim,i,j,iter
     REAL(8) :: psum(SIZE(x)),p(SIZE(x)+1,SIZE(x)),y(SIZE(x)+1),pb(SIZE(x)),ver
-    !Initialize the simplex
+!Initialize the simplex
     DO i=2,SIZE(x)+1
        DO j=1,SIZE(x)
           IF (i-1==j) THEN
@@ -31,7 +32,7 @@ CONTAINS
              p(i,j) = x(j) + ver
           ELSE
              pb(j) = x(j)
-             p(i,j) = x(j)                
+             p(i,j) = x(j)
           END IF
        END DO
        y(i)=FUNC(pb)
@@ -40,7 +41,7 @@ CONTAINS
        pb(j)=x(j)
        p(1,j)=x(j)
     END DO
-    y(1)=FUNC(pb)    
+    y(1)=FUNC(pb)
     call amoeba_private
   CONTAINS
 
@@ -62,30 +63,31 @@ CONTAINS
          y(ihi)=ytmp
          IF (id==0) THEN
             IF (iter>0) THEN
-               CALL SYSTEM_CLOCK(count=tout) 
+               CALL SYSTEM_CLOCK(count=tout)
                tout=tout-tin
                tim=DBLE(tout)/DBLE(hz)
                WRITE(*,'(A,I10,A,F32.16,A,F16.8)') &
                     'iterations',iter,' best value',y(ilo),' time',tim
             END IF
          END IF
-         CALL SYSTEM_CLOCK(count_rate=hz) 
-         CALL SYSTEM_CLOCK(count=tin)        
+         CALL SYSTEM_CLOCK(count_rate=hz)
+         CALL SYSTEM_CLOCK(count=tin)
          rtol=2.0d0*abs(y(ihi)-y(ilo))/(abs(y(ihi))+abs(y(ilo))+TINY)
          if (rtol < ftol) then
             call swap(y(1),y(ilo))
             call swap(p(1,:),p(ilo,:))
             IF (id==0) WRITE(*,*) "Stopped by tolerance"
-            WRITE(*,*) id,"Stopped by tolerance"
-            !RETURN
+						if (id==3) print*, "Stopped by tolerance"
+! print*, id,"Stopped by tolerance"
+!RETURN
             EXIT
          end if
          IF (iter >= ITMAX) THEN
             IF (id==0) WRITE(*,*) 'ITMAX exceeded in amoeba'
-            !WRITE(*,*) id,"ITMAX"
-	    !RETURN
+            print*, id,"ITMAX"
+!RETURN
             EXIT
-	      END IF
+	 			END IF
          ytry=amotry(-1.0d0)
          iter=iter+1
          if (ytry <= y(ilo)) then
@@ -124,5 +126,5 @@ CONTAINS
       end if
       amotry=ytry
     END FUNCTION amotry
-  END SUBROUTINE Nelder_Meade
-END MODULE SIMPLEX
+  END SUBROUTINE Nelder_Meade1
+END MODULE SIMPLEX1

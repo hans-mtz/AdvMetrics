@@ -1,0 +1,20 @@
+# 1 "/Volumes/SSD Hans 1/Github/AdvMetrics/PS1/likelihood_evaluation.f90"
+MODULE LIKELIHOOD_EVALUATION
+  USE GLOBVAR
+  USE PROBABILITY, ONLY : PDF_NORMAL
+  IMPLICIT NONE
+  
+CONTAINS 
+  
+  REAL(8) FUNCTION LIKE_EVAL(i)
+    IMPLICIT NONE
+    INTEGER, INTENT(IN) :: i
+    REAL(8) :: xb
+        
+    LIKE_EVAL = 0.0d0
+    xb = DOT_PRODUCT(x(i,:),beta)
+    LIKE_EVAL=PDF_NORMAL(y(i),xb,variance)
+  END FUNCTION LIKE_EVAL
+  
+END MODULE LIKELIHOOD_EVALUATION
+   

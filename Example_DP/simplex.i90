@@ -1,3 +1,4 @@
+# 1 "/Volumes/SSD Hans 1/Github/AdvMetrics/Example_DP/simplex.f90"
 MODULE SIMPLEX
   IMPLICIT NONE
 
@@ -16,11 +17,11 @@ CONTAINS
        END FUNCTION func
     END INTERFACE
     INTEGER, INTENT(IN) :: itmax
-    !INTEGER, PARAMETER :: ITMAX=100000
+!INTEGER, PARAMETER :: ITMAX=100000
     REAL(8), PARAMETER :: TINY=1.0e-12
     INTEGER :: ihi,ndim,i,j,iter
     REAL(8) :: psum(SIZE(x)),p(SIZE(x)+1,SIZE(x)),y(SIZE(x)+1),pb(SIZE(x)),ver
-    !Initialize the simplex
+!Initialize the simplex
     DO i=2,SIZE(x)+1
        DO j=1,SIZE(x)
           IF (i-1==j) THEN
@@ -77,13 +78,13 @@ CONTAINS
             call swap(p(1,:),p(ilo,:))
             IF (id==0) WRITE(*,*) "Stopped by tolerance"
             WRITE(*,*) id,"Stopped by tolerance"
-            !RETURN
+!RETURN
             EXIT
          end if
          IF (iter >= ITMAX) THEN
             IF (id==0) WRITE(*,*) 'ITMAX exceeded in amoeba'
-            !WRITE(*,*) id,"ITMAX"
-	    !RETURN
+!WRITE(*,*) id,"ITMAX"
+!RETURN
             EXIT
 	      END IF
          ytry=amotry(-1.0d0)
